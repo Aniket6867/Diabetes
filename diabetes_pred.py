@@ -8,11 +8,15 @@ Created on Thu Sep 18 00:41:33 2025
 import numpy as np
 import pickle
 import streamlit as st
+import os
 
-# load the saved model (fix path issue)
-loaded_model = pickle.load(open(
-    r"C:\Users\HP\OneDrive\Desktop\Deploy\trained_model.sav", "rb"
-))
+# load the saved model (relative path, works locally & on Streamlit Cloud)
+current_dir = os.path.dirname(__file__)
+model_path = os.path.join(current_dir, "trained_model.sav")
+
+with open(model_path, "rb") as file:
+    loaded_model = pickle.load(file)
+
 
 # function for Prediction
 def diabetes_prediction(input_data):
